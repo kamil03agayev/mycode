@@ -3,7 +3,7 @@ import numpy as np
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
-
+# print
 # Global variables for HSV limits
 lower_h = 0
 lower_s = 0

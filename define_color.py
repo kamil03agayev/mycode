@@ -1,6 +1,6 @@
 import cv2
 import os
-
+# print
 # Open a connection to the camera
 camera = cv2.VideoCapture(1)  # Use 0 for the default camera, or replace with the appropriate index
 
