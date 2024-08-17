@@ -1,7 +1,7 @@
 import cv2
 import time
 import numpy as np
-
+# print
 colors =  [[5,236,201],  #redcolor
            [87,255,38], #greencolor
            [123,149,82]]  #violet color
