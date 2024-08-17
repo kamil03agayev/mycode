@@ -1,15 +1,7 @@
 import cv2
 import time
 import numpy as np
-# from PIL import Image
-# import tkinter as tk
 
-# window = tk.Tk()
-# window.geometry('500x500')
-# tolerance_field = tk.Entry(window)
-
-# xmin, ymin, xmax, ymax = 0, 0, 0, 0
-# line_color = (0, 255, 0)
 colors =  [[5,236,201],  #redcolor
            [87,255,38], #greencolor
            [123,149,82]]  #violet color
@@ -19,6 +11,7 @@ ptime, ctime = 0, 0
 color_tolerance = 15
 lowl = 130
 highl = 250
+lines_distance = 250
 camera = cv2.VideoCapture(0)
 
 def detect_color(image, color, s):
@@ -35,7 +28,7 @@ def detect_color(image, color, s):
         red_mask = cv2.bitwise_or(red_mask1, red_mask2)
         return red_mask
     elif s == 1:
-        lowlimit1 = np.array([25, 52, 72])
+        lowlimit1 = np.array([25, 150, 150])
         highlimit1 = np.array([102, 255, 255])
         green_mask = cv2.inRange(hsvc, lowlimit1, highlimit1)
         return green_mask
@@ -44,27 +37,15 @@ def detect_color(image, color, s):
         highlimit1 = np.array([5, 255, 255])
         violet_mask = cv2.inRange(hsvc, lowlimit1, highlimit1)
         return violet_mask
-    # else:
-    #     hsvc = np.uint8([[color]])
-        
-    #     lowlimit = hsvc[0][0][0] - color_tolerance, lowl, lowl
-    #     highlimit = hsvc[0][0][0] + color_tolerance, highl, highl
-        
-    #     lowlimit = np.array(lowlimit, dtype=np.uint8)
-    #     highlimit = np.array(highlimit, dtype=np.uint8)
-        
-    #     hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    #     mask = cv2.inRange(hsv_img, lowlimit, highlimit)
-    #     return mask
-    # return lowlimit, highlimit
+    
 
 def draw_elements(img, object_color):
     global cx, cy
     height, width, _ = img.shape
 
-    img = cv2.line(img, (int(width/3), 0), (int(width/3), height), draw_color, thickness = 1)
-    img = cv2.line(img, (int(width/3*2), 0), (int(width/3*2), height), draw_color, thickness = 1)
-
+    img = cv2.line(img, (int(lines_distance), 0), (int(lines_distance), height), draw_color, thickness = 1)
+    img = cv2.line(img, (int(width-lines_distance), 0), (int(width-lines_distance), height), draw_color, thickness = 1)
+    # print(lines_distance, int(width-lines_distance))
 
     return img
 
@@ -107,21 +88,20 @@ while True:
             cx, cy = int(x+w/2), int(y+h/2)
             img = cv2.line(img, (cx, 0), (cx, height), draw_color, thickness = 2)  
             img = cv2.rectangle(img, (width-40, 20), (width - 20, 80), object_color, thickness = -1)
-            if cx > int(width/3) and cx < int(width/3*2) and color_name != 'violet':
+            if cx > int(lines_distance) and cx < int(width-lines_distance) and color_name != 'violet':
                 print("Its good!!!")
-            elif cx < int(width/3) and color_name == 'green':
+            elif cx < int(lines_distance) and color_name == 'green':
                 print('Left side')
-            elif cx > int(width/3*2) and color_name == 'green':
+            elif cx > int(width-lines_distance) and color_name == 'green':
                 print('Right side')  
-            elif cx < int(width/3) and color_name == 'red':
+            elif cx < int(lines_distance) and color_name == 'red':
                 print('Right side')
-            elif cx > int(width/3*2) and color_name == 'red':
+            elif cx > int(width-lines_distance) and color_name == 'red':
                 print('Left side')   
             # print(f'Detected color: {color_name}')
 
             break  
   
-    # img = cv2.rectangle(img, (int(round(xmin)), int(round(ymin))), (int(round(xmax)), int(round(ymax))), (255, 0, 0), 1)
     ctime = time.time()
     fps = 1/(ctime-ptime)
     ptime = ctime
