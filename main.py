@@ -2,7 +2,7 @@ import cv2
 import time
 import numpy as np
 # from PIL import Image
-
+print("code starting...")
 colors =  [[178,132,137],  #redcolor
            [78,160,134], #greencolor
            [117,162,77]]  #violet color
