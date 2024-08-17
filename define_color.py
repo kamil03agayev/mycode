@@ -2,7 +2,7 @@ import cv2
 import os
 
 # Open a connection to the camera
-camera = cv2.VideoCapture(0)  # Use 0 for the default camera, or replace with the appropriate index
+camera = cv2.VideoCapture(1)  # Use 0 for the default camera, or replace with the appropriate index
 
 if not camera.isOpened():
     print("Error: Camera not opened.")
@@ -35,11 +35,10 @@ while True:
     cv2.imshow('Frame with Center Pixel', frame_with_circle)
 
     # Exit the loop if 'q' is pressed
-    if cv2.waitKey(1) & 0xFF == ord('k'):
-        os.system('cls')
-        print(f"Center pixel color - [{b},{g},{r}]")
 
-    elif cv2.waitKey(1) & 0xFF == ord('q'):
+    print(f"Center pixel color - [{b},{g},{r}]")
+    os.system('cls')
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 # Release the camera and close all OpenCV windows
