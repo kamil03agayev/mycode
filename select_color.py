@@ -5,8 +5,8 @@ import numpy as np
 import copy
 # Set up the main Tkinter window
 frame = Tk()
-frame.geometry('500x500')
-
+frame.geometry('840x600')
+hue = PhotoImage(file='mycode\hue.png')
 # Initialize the Tkinter StringVars for the HSV limits
 hl = StringVar(value='0')
 sl = StringVar(value='0')
@@ -74,6 +74,7 @@ def print_values():
 
 # Set up the GUI sliders for setting HSV limits
 def setup_gui():
+    label = Label(frame, image=hue)
     h_low = Scale(frame, orient=HORIZONTAL,length=1000,  from_=0, to=180, variable=hl, label="H Low")
     s_low = Scale(frame, orient=HORIZONTAL,length=1000,  from_=0, to=255, variable=sl, label="S Low")
     v_low = Scale(frame, orient=HORIZONTAL,length=1000,  from_=0, to=255, variable=vl, label="V Low")
@@ -83,6 +84,8 @@ def setup_gui():
     chk = Checkbutton(frame, text="One Object", variable= ch, onvalue=1, offvalue=0)
     copy_button = Button(frame, text="Copy", command=print_values, height=2, width=50)
     # Pack the sliders into the Tkinter window
+    label.pack()
+
     h_low.pack()
     s_low.pack()
     v_low.pack()
@@ -90,7 +93,7 @@ def setup_gui():
     s_high.pack()
     v_high.pack()
     chk.pack()
-    copy_button.place(x= 60, y=450)
+    copy_button.place(x= 250, y=550)
     # Start the video processing in a separate thread
     threading.Thread(target=process_video, daemon=True).start()
 

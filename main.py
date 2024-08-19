@@ -13,7 +13,7 @@ lowl = 130
 highl = 250
 lines_distance = 250
 camera = cv2.VideoCapture(0)
-
+crop = 100
 def detect_color(image, color, s):
     hsvc = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
@@ -53,7 +53,7 @@ while True:
     success, img = camera.read()
     # width, height, c = img.shape
     height, width, _ = img.shape
-
+    img = img[:, crop:width - crop]
 
     mask = detect_color(image=img, color=colors[0], s = 0)
     contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) 
