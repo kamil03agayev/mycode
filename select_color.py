@@ -13,7 +13,10 @@ vl = StringVar(value='50')
 hh = StringVar(value='180')
 sh = StringVar(value='255')
 vh = StringVar(value='255')
+<<<<<<< HEAD
 
+=======
+>>>>>>> a1d2479138702f7b6f664d337af8f6b3cf196f6d
 ch = StringVar(value='0')
 
 # Open the camera

@@ -10,8 +10,12 @@ lowl = 130
 highl = 250
 lines_distance = 250
 camera = cv2.VideoCapture(0)
+<<<<<<< HEAD
 crop = 0
 
+=======
+crop = 100
+>>>>>>> a1d2479138702f7b6f664d337af8f6b3cf196f6d
 def detect_color(image, color, s):
     hsvc = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
